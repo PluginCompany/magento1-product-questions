@@ -1,0 +1,132 @@
+<div class="page-title">
+    <h1><?php echo $this->__('My Product Questions'); ?></h1>
+</div>
+<?php
+$data = $this->getProductQuestionsDataExt();
+$id='';
+
+?>
+<div id="plugincompany_questions"
+    <?php if (Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/material_design')) { ?>
+        class="materialstyle"
+    <?php } ?>
+    >
+    <div id="questionscontent">
+        <?php
+        /*
+         * QUESTIONS LIST
+         */
+        $oldProductId = 0;
+        $productResource = Mage::getResourceModel('catalog/product');
+        foreach($data as $question):
+            if($oldProductId != $question->getProductId()){ ?>
+                <h3><?php echo $productResource->getAttributeRawValue($question->getProductId(),'name',Mage::app()->getStore()->getId()); ?></h3>
+            <?php
+                $oldProductId = $question->getProductId();
+            } ?>
+            <div class="productquestion" question_id="<?php echo $question['question_id'];?>">
+                <p class="question"><?php echo nl2br($question->getQuestion()); ?></p>
+                <div class="bottom">
+                    <p class="asker">
+                        <?php echo $this->__('Question submitted by: ').$question->getName().$this->__(' on: ').$question->getDateAsked(); ?>
+                    </p>
+                    <div class="votes">
+                        <?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/upvote_questions')){ ?>
+                            <span class="like" ><span class="icon-thumbs-up" onclick="pcqCastvote(this,'question','up',<?php echo $question->getQuestionId() ?>)"></span> <span class="count"><?php echo $question->getUpvotes();?></span></span>
+                        <?php } ?>
+                        <?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/downvote_questions')){ ?>
+                            <span class="dislike"><span class="icon-thumbs-down" onclick="pcqCastvote(this,'question','down',<?php echo $question->getQuestionId() ?>)"></span> <span class="count"><?php echo $question->getDownvotes(); ?></span></span>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <?php if($question->getAnswer()){ ?>
+            <div class="productanswer" question_id="<?php echo $question->getId();?>">
+                <p class="answer"><?php echo nl2br($question->getAnswer()); ?></p>
+                <div class="bottom">
+                    <p class="answerer"><?php echo $this->__('Answer submitted by: ').$question->getAnsweredBy().$this->__(' on: ').$question->getDateAnswered(); ?></p>
+                    <div class="votes">
+                        <?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/upvote_answers')){ ?>
+                            <span class="like" ><span class="icon-thumbs-up" onclick="pcqCastvote(this,'answer','up',<?php echo $question->getQuestionId() ?>)"></span> <span class="count"><?php echo $question->getAnswerUpvotes();?></span></span>
+                        <?php } ?>
+                        <?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/downvote_answers')){ ?>
+                            <span class="dislike"><span class="icon-thumbs-down" onclick="pcqCastvote(this,'answer','down',<?php echo $question->getQuestionId() ?>)"></span> <span class="count"><?php echo $question->getAnswerDownvotes(); ?></span></span>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function pcqSetCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+    function pcqGetCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+
+    function pcqCastvote(element,type,dir,qid){
+        var element = element;
+        var qid = qid;
+        var dir = dir;
+        var type = type;
+
+        if((pcqGetCookie('pcq_voted_question_' + qid) && type == 'question') || (pcqGetCookie('pcq_voted_answer_' + qid) && type == 'answer')){
+            return false;
+        }
+
+        new Ajax.Updater(element.next(), '<?php echo $this->getUrl('productquestions/frontend/vote'); ?>dir/'+ dir + '/qid/'+qid + '/type/' + type, {
+            onComplete: function(){
+                element.up().addClassName('voted');
+                pcqSetCookie('pcq_voted_' + type + '_' + qid, dir, 120);
+            }
+        });
+    }
+
+    function updateVoteColors() {
+        $$('.productquestion').each(function(item) {
+            var qid = item.readAttribute('question_id');
+            var dir = pcqGetCookie('pcq_voted_question_' + qid);
+            if(dir){
+                if(dir == 'down'){
+                    if(item.down('.dislike'))
+                        item.down('.dislike').addClassName('voted');
+                }else if(dir == 'up'){
+                    if(item.down('.like'))
+                        item.down('.like').addClassName('voted');
+                }
+            }
+
+        });
+        $$('.productanswer').each(function(item) {
+            var qid = item.readAttribute('question_id');
+            var dir = pcqGetCookie('pcq_voted_answer_' + qid);
+            if(dir){
+                if(dir == 'down'){
+                    if(item.down('.dislike'))
+                        item.down('.dislike').addClassName('voted');
+                }else if(dir == 'up'){
+                    if(item.down('.like'))
+                        item.down('.like').addClassName('voted');
+                }
+            }
+        })
+    }
+
+    updateVoteColors();
+
+</script>
+

@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Product Questions, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<widgets>
+    <product_question_widget type="productquestions/frontend_widget_multiple" translate="name description" module="productquestions">
+        <name>Random Product Questions Widget</name>
+        <description>Product Questions Widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <unique_id>
+                <required>1</required>
+            </unique_id>
+            <widget_title>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Widget title</label>
+                <type>text</type>
+                <sort_order>135</sort_order>
+                <value>Recent Product Questions</value>
+                <description>The title shown above the Product Questions widget.</description>
+            </widget_title>
+            <question_count>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Widget items</label>
+                <type>select</type>
+                <values>
+                    <five translate="label">
+                        <value>5</value>
+                        <label>5</label>
+                    </five>
+                    <ten translate="label">
+                        <value>10</value>
+                        <label>10</label>
+                    </ten>
+                    <twenty translate="label">
+                        <value>20</value>
+                        <label>20</label>
+                    </twenty>
+                    <fifty translate="label">
+                        <value>50</value>
+                        <label>50</label>
+                    </fifty>
+                    <hundred translate="label">
+                        <value>100</value>
+                        <label>100</label>
+                    </hundred>
+                    <thundred translate="label">
+                        <value>200</value>
+                        <label>200</label>
+                    </thundred>
+                </values>
+                <sort_order>137</sort_order>
+                <description>The number of questions rotating in the ticker widget.</description>
+            </question_count>
+            <row_count>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Widget rows</label>
+                <type>select</type>
+                <values>
+                    <one translate="label">
+                        <value>1</value>
+                        <label>1</label>
+                    </one>
+                    <two translate="label">
+                        <value>2</value>
+                        <label>2</label>
+                    </two>
+                    <two translate="label">
+                        <value>2</value>
+                        <label>2</label>
+                    </two>
+                    <three translate="label">
+                        <value>3</value>
+                        <label>3</label>
+                    </three>
+                    <four translate="label">
+                        <value>4</value>
+                        <label>4</label>
+                    </four>
+                    <five translate="label">
+                        <value>5</value>
+                        <label>5</label>
+                    </five>
+                    <five translate="label">
+                        <value>5</value>
+                        <label>5</label>
+                    </five>
+                    <ten translate="label">
+                        <value>10</value>
+                        <label>10</label>
+                    </ten>
+                    <fifteen translate="label">
+                        <value>15</value>
+                        <label>15</label>
+                    </fifteen>
+                    <twenty translate="label">
+                        <value>20</value>
+                        <label>20</label>
+                    </twenty>
+                    <fifty translate="label">
+                        <value>50</value>
+                        <label>50</label>
+                    </fifty>
+                </values>
+                <sort_order>136</sort_order>
+                <description>The number of questions shown at the same time.</description>
+            </row_count>
+            <use_jquery>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Include jQuery</label>
+                <type>select</type>
+                <values>
+                    <no translate="label">
+                        <value>0</value>
+                        <label>No</label>
+                    </no>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>Yes</label>
+                    </yes>
+                </values>
+                <sort_order>138</sort_order>
+                <description>Use the jQuery Javascript library.</description>
+            </use_jquery>
+        </parameters>
+    </product_question_widget>
+</widgets>

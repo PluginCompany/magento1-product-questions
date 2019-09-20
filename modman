@@ -1,0 +1,12 @@
+app/code/local/Plugincompany/Productquestions app/code/local/Plugincompany/Productquestions
+app/design/adminhtml/default/default/layout/plugincompany/productquestions.xml app/design/adminhtml/default/default/layout/plugincompany/productquestions.xml
+app/design/frontend/base/default/layout/plugincompany/productquestions.xml app/design/frontend/base/default/layout/plugincompany/productquestions.xml
+app/design/frontend/base/default/template/plugincompany/customeracc.phtml app/design/frontend/base/default/template/plugincompany/customeracc.phtml
+app/design/frontend/base/default/template/plugincompany/productquestions app/design/frontend/base/default/template/plugincompany/productquestions
+app/design/frontend/base/default/template/plugincompany/questions.phtml app/design/frontend/base/default/template/plugincompany/questions.phtml
+app/etc/modules/Plugincompany_Productquestions.xml app/etc/modules/Plugincompany_Productquestions.xml
+app/locale/de_DE/Plugincompany_Productquestions.csv app/locale/de_DE/Plugincompany_Productquestions.csv
+app/locale/en_US/Plugincompany_Productquestions.csv app/locale/en_US/Plugincompany_Productquestions.csv
+js/plugincompany/productquestions js/plugincompany/productquestions
+skin/frontend/base/default/css/plugincompany/questions.css skin/frontend/base/default/css/plugincompany/questions.css
+skin/frontend/base/default/css/plugincompany/thumbs skin/frontend/base/default/css/plugincompany/thumbs

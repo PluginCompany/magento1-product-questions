@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Product Questions, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<layout>
+    <product_questions_handle>
+        <reference name="product.info">
+            <block type="productquestions/frontend_questions" after="-" name="questions" as="questions" template="plugincompany/questions.phtml">
+                <action method="addToParentGroup">
+                    <group>detailed_info</group>
+                </action>
+                <action method="setTitle" translate="value">
+                    <value>Product Questions</value>
+                </action>
+            </block>
+            <reference name="product.info.tabs">
+                <action method="addTab" translate="title" module="productquestions">
+                    <alias>product_questions_block</alias>
+                    <title>Product Questions</title>
+                    <block>productquestions/frontend_questions</block>
+                    <template>plugincompany/questions.phtml</template>
+                </action>
+            </reference>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/plugincompany/questions.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/plugincompany/thumbs/css/updown.css</stylesheet>
+            </action>
+        </reference>
+    </product_questions_handle>
+
+    <!-- Ultimo theme fix because they put everything in local.xml -->
+
+    <PRODUCT_TYPE_simple>
+        <update handle="product_questions_handle"/>
+    </PRODUCT_TYPE_simple>
+
+    <PRODUCT_TYPE_configurable>
+        <update handle="product_questions_handle"/>
+    </PRODUCT_TYPE_configurable>
+
+    <PRODUCT_TYPE_bundle>
+        <update handle="product_questions_handle"/>
+    </PRODUCT_TYPE_bundle>
+
+    <PRODUCT_TYPE_virtual>
+        <update handle="product_questions_handle"/>
+    </PRODUCT_TYPE_virtual>
+
+    <PRODUCT_TYPE_grouped>
+        <update handle="product_questions_handle"/>
+    </PRODUCT_TYPE_grouped>
+
+    <PRODUCT_TYPE_downloadable>
+        <update handle="product_questions_handle"/>
+    </PRODUCT_TYPE_downloadable>
+
+    <review_product_list>
+        <remove name="product_questions_block"/>
+        <remove name="questions"/>
+
+    </review_product_list>
+
+    <!-- end Ultimo theme fix because they put everything in local.xml -->
+
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="productquestions">
+                <name>ListController</name>
+                <path>productquestions/index/index</path>
+                <label>My Product Questions</label>
+            </action>
+        </reference>
+    </customer_account>
+
+    <productquestions_index_index translate="label">
+        <label>Customer My Account Product Questions</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="productquestions/frontend_accounttab" name="customeracc" as="customeracc" template="plugincompany/customeracc.phtml"/>
+            <block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/plugincompany/questions.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/plugincompany/thumbs/css/updown.css</stylesheet>
+            </action>
+        </reference>
+    </productquestions_index_index>
+
+</layout>

@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Product Questions, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<config>
+  <modules>
+    <Plugincompany_Productquestions>
+      <version>1.6.0</version>
+    </Plugincompany_Productquestions>
+  </modules>
+  <global>
+    <helpers>
+      <productquestions>
+        <class>Plugincompany_Productquestions_Helper</class>
+      </productquestions>
+    </helpers>
+	<blocks>
+	  <productquestions>
+		<class>Plugincompany_Productquestions_Block</class>
+	  </productquestions>
+	</blocks>
+
+	<models>
+	  <productquestions>
+		<class>Plugincompany_Productquestions_Model</class>
+		<resourceModel>productquestions_mysql4</resourceModel>
+	  </productquestions>
+	  <productquestions_mysql4>
+		<class>Plugincompany_Productquestions_Model_Mysql4</class>
+		<entities>		  
+			  <questions>
+				<table>plugincompany_questions</table>
+			  </questions>
+        </entities>
+	  </productquestions_mysql4>
+	</models>
+	<resources>
+	  <productquestions_setup>
+		<setup>
+		  <module>Plugincompany_Productquestions</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </productquestions_setup>
+	  <productquestions_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </productquestions_write>
+	  <productquestions_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </productquestions_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <adminhtml>
+				<args>
+					<modules>
+						<productquestions before="Mage_Adminhtml">Plugincompany_Productquestions_Adminhtml</productquestions>
+					</modules>
+				</args>
+			</adminhtml>
+	</routers>
+  </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <productquestions>
+                    <file>plugincompany/productquestions.xml</file>
+                </productquestions>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <plugincompany_productquestions>
+                    <files>
+                        <default>Plugincompany_Productquestions.csv</default>
+                    </files>
+                </plugincompany_productquestions>
+            </modules>
+        </translate>
+        <events>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <plugincompany_productquestions>
+                        <type>model</type>
+                        <class>productquestions/observer</class>
+                        <method>addCustomerTab</method>
+                    </plugincompany_productquestions>
+                </observers>
+            </core_block_abstract_to_html_before>
+        </events>
+    </adminhtml>
+  <frontend>
+  	<layout>
+	  <updates>
+		<productquestions>
+		  <file>plugincompany/productquestions.xml</file>
+		</productquestions>
+	  </updates>
+	</layout>
+	<routers>
+	  <productquestions>
+	    <use>standard</use>
+		<args>
+		  <module>Plugincompany_Productquestions</module>
+		  <frontName>productquestions</frontName>
+		</args>
+	  </productquestions>
+	</routers>
+      <translate>
+          <modules>
+              <plugincompany_productquestions>
+                  <files>
+                      <default>Plugincompany_Productquestions.csv</default>
+                  </files>
+              </plugincompany_productquestions>
+          </modules>
+      </translate>
+  </frontend>
+  <default>
+      <plugincompany_questions>
+          <plugincompany_questions_group>
+              <enabled>0</enabled>
+              <autoapprove>0</autoapprove>
+              <sendquestionemail></sendquestionemail>
+              <sendquestiontoclient>1</sendquestiontoclient>
+              <sendansweremail>1</sendansweremail>
+              <needloggedin>0</needloggedin>
+              <allow_private>1</allow_private>
+              <questionsperpage>5</questionsperpage>
+              <material_design>1</material_design>
+              <upvote_questions>1</upvote_questions>
+              <downvote_questions>0</downvote_questions>
+              <upvote_answers>1</upvote_answers>
+              <downvote_answers>0</downvote_answers>
+              <sorting>upvotes</sorting>
+              <enable_captcha>0</enable_captcha>
+          </plugincompany_questions_group>
+          <answer_settings>
+              <default_name>Support</default_name>
+          </answer_settings>
+          <plugincompany_questions_defineanswermail>
+              <subject><![CDATA[Product question answered]]></subject>
+              <content><![CDATA[Dear {customername},
+
+Your question about <a href="{producturl}">{productname}</a> has been answered by {moderator}:
+
+{answertext}
+
+If you have any other questions about our products, please don't hesitate to contact us again!
+
+Best regards,
+
+{storename}]]></content>
+          </plugincompany_questions_defineanswermail>
+          <plugincompany_questions_definemail>
+              <subject><![CDATA[Product question received]]></subject>
+              <content><![CDATA[Dear {customername},
+
+Thank you for contacting us!
+
+We have received your inquiry about <a href="{producturl}">{productname}</a> and will answer your question shortly.
+
+{questiontext}
+
+If you have any other questions in the mean time, please don't hesitate to contact us again.
+
+Best regards,
+
+{storename}]]></content>
+          </plugincompany_questions_definemail>
+      </plugincompany_questions>
+   </default>
+</config> 

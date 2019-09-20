@@ -1,0 +1,262 @@
+<style type="text/css">
+    .qw-widget {
+        margin: auto;
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        background:white;
+        padding:0px!important;
+    }
+
+    .qw-widget-container h3 {
+        font-size:20px;
+        width:100%;
+    }
+
+    .qw-widget-container .qw-title {
+        width:100%;
+    }
+
+    .qw-widget li {
+        color: #4e4e4e;
+        overflow: hidden;
+        padding: 10px;
+        line-height: 1.2em;
+        list-style: none;
+        font-size: 1em;
+        text-align: left;
+        border-bottom: 1px solid #dadada;
+        width:100%;
+        cursor:pointer;
+        margin-left:0px!important;
+        box-sizing:border-box;
+    }
+
+    .qw-widget .qw-img-container {
+        width:90px;
+        height:90px;
+        overflow:hidden;
+        float:left;
+        line-height:90px;
+        text-align:center;
+        vertical-align: middle;
+        position:relative;
+        box-sizing:border-box;
+        margin-top:14px;
+        display:none;
+    }
+
+    .qw-widget div.imgwrap {
+        width:100%;
+        text-align:center;
+        vertical-align: middle;
+        overflow:hidden;
+        height:100%;
+        position:absolute;
+        border:3px solid #7dd3e0;
+        border-radius: 50%;
+        background:white;
+        box-sizing:border-box;
+    }
+    .qw-widget img {
+        width:120%;
+        margin-left:-10%;
+        vertical-align: middle;
+        display:inline-block;
+    }
+
+    .qw-widget li:hover {
+        background: #f2f2f2;
+    }
+
+    .qw-widget .qw-content {
+        width:80%;
+        width:calc(100% - 90px);
+        box-sizing:border-box;
+        padding-left:15px;
+        padding-right:10px;
+        float:left;
+    }
+
+    .qw-widget .qw-content h4 {
+        font-size:16px;
+        padding:0px;
+        margin:0px;
+        margin-bottom:3px;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        overflow:hidden;
+    }
+
+    .qw-widget .qw-content .qw-qa {
+        box-sizing:border-box;
+        width:100%;
+        position:relative;
+        padding:10px;
+        padding-right:20px;
+        padding-left:30px;
+        margin-bottom:-5px;
+    }
+
+    .qw-widget .qw-content .qw-qa .qw-text {
+        text-overflow: ellipsis;
+        height:100%;
+        width:100%;
+    }
+
+    .qw-widget .qw-content .qw-qa .qw-icon {
+        position:absolute;
+        left:0px;
+        top:13px;
+        height:20px;
+        width:20px;
+        line-height:20px;
+        overflow:hidden;
+        text-align:center;
+        vertical-align:middle;
+        background:#7dd3e0;
+        border-radius:50%;
+        color:white;
+        font-weight:bold;
+        font-size:14px;
+        display:block;
+    }
+
+    .qw-widget .qw-content .qw-qa .qw-icon-ans {
+        background: #FFBBBB;
+    }
+
+</style>
+<?php
+//get collection and order by random
+$storeId = Mage::app()->getStore()->getStoreId();
+$questions = Mage::getModel('productquestions/questions')->getCollection();
+$questions
+    ->addFieldToFilter('approved',0)
+    ->addFieldToFilter('store_ids',array('finset'=>$storeId))
+    ->addFieldToFilter('private',0)
+    ->addFieldToFilter('answer',array('notnull'=>true))
+    ->getSelect()
+    ->order("rand()")
+    ->limit($this->getQuestionCount())
+;
+?>
+
+<div class="qw-widget-container">
+    <?php if($title = $this->getWidgetTitle()){?>
+        <div class="qw-title">
+            <h3><?php echo $title;?></h3>
+        </div>
+    <?php } ?>
+    <ul id="qw_<?php echo $id = uniqid();?>" class="qw-widget">
+        <?php
+        $productResource = Mage::getResourceModel('catalog/product');
+        foreach($questions as $question){ ?>
+            <?php
+            $_product = Mage::getModel('catalog/product')
+                ->getCollection()
+                ->addAttributeToSelect(array('thumbnail','name','url_path','url_key'))
+                ->addAttributeToFilter('entity_id',$question->getProductId())
+                ->addStoreFilter($storeId)
+                ->getFirstItem();
+            ?>
+            <li class="qw-item" onclick="window.location.href = '<?php echo Mage::getBaseUrl() . $_product->getUrlPath(); ?>'">
+                <div class="qw-img-container">
+                    <div class="imgwrap">
+                        <img class="qw-image" src="<?php echo Mage::helper('catalog/image')->init($_product, 'thumbnail')->resize(90); ?>" />
+                    </div>
+                </div>
+                <div class="qw-content">
+                    <h4 class="qw-product-title"><?php echo $_product->getName(); ?></h4>
+                    <div class="qw-qa">
+                        <span class="qw-icon">Q</span>
+                        <div class="qw-text">
+                            <?php echo strip_tags($question->getQuestion()); ?>
+                        </div>
+                    </div>
+                    <?php if($question->getAnswer()){ ?>
+                        <div class="qw-qa">
+                            <span class="qw-icon qw-icon-ans">A</span>
+                            <div class="qw-text">
+                                <?php echo strip_tags($question->getAnswer()); ?>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </li>
+        <?php } ?>
+    </ul>
+</div>
+
+<?php
+//include jquery if needed
+if($this->getUseJquery() && !Mage::registry('qw_jquery_already')){
+    Mage::register('qw_jquery_already',true);
+    ?>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        jQuery.noConflict();
+    </script>
+<?php } ?>
+
+<?php
+//if first widget add js libs
+if (!Mage::registry('qw_first_widget')) {
+    Mage::register('qw_first_widget',true);
+    ?>
+    <script src="<?php echo Mage::getBaseUrl('js'); ?>plugincompany/productquestions/jquery.newsTicker.js"></script>
+    <script src="<?php echo Mage::getBaseUrl('js'); ?>plugincompany/productquestions/clamp.js"></script>
+<?php } ?>
+
+<script type="text/javascript">
+    jQuery(function($) {
+        console.log('asdasd');
+        $('.qw-text').each(function(index,element) {
+            $clamp(element, {clamp: 2});
+        })
+
+        var iHeight = 0;
+        $('#qw_<?php echo $id;?> .qw-content').each(function() {
+            if($(this).height() > iHeight) {
+                iHeight = $(this).height();
+            }
+        })
+
+        console.log(iHeight);
+        $('#qw_<?php echo $id;?> .qw-content').css('height', iHeight + 'px');
+
+        iHeight = 0;
+        $('#qw_<?php echo $id;?> .qw-text').each(function() {
+            if($(this).height() > iHeight) {
+                iHeight = $(this).height();
+            }
+        })
+        $('#qw_<?php echo $id;?> .qw-text').css('height', iHeight + 'px');
+
+
+        setTimeout(function() {
+            var height = $('#qw_<?php echo $id; ?> .qw-item').first().outerHeight();
+            console.log(height);
+            var pw_widget = $('#qw_<?php echo $id; ?>').newsTicker({
+                row_height: height,
+                max_rows: <?php echo $this->getRowCount();?>,
+                duration: 8000
+            });
+        },300)
+
+        $('.qw-widget-container').each(function() {
+            var item = jQuery(this);
+            if(item.width() < 300){
+                item.find('.qw-img-container').hide();
+                item.find('.qw-content').css({'width':'100%','padding-left':'0px','padding-right': '0px'});
+                item.find('.qw-title').css('font-size', '14px').addClass('block-title');
+                item.find('.qw-product-title').css('font-size', '12px');
+                item.find('.qw-title h3').css('font-size', '14px');
+            }else{
+                item.find('.qw-img-container').show();
+            }
+
+        })
+    })
+</script>
+

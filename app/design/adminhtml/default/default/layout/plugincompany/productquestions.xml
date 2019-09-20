@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Product Questions, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<layout version="0.1.0">
+  <adminhtml_productquestions_questions_index>
+      <reference name="content">
+          <block type="productquestions/adminhtml_questions" name="questions" />
+      </reference>
+  </adminhtml_productquestions_questions_index>
+    <adminhtml_productquestions_questions_edit>
+        <update handle="editor"/>
+        <reference name="head">
+            <action method="setCanLoadTinyMce"><load>1</load></action>
+        </reference>
+    </adminhtml_productquestions_questions_edit>
+</layout>

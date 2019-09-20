@@ -1,0 +1,344 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Product Questions, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<config>
+    <sections>
+        <plugincompany_questions  translate="label" module="productquestions">
+            <label>Product Questions</label>
+            <tab>catalog</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>10000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <plugincompany_questions_group translate="label">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable extension</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Add Product Questions tab to product pages.]]></comment>
+                        </enabled>
+                        <allow_private translate="label">
+                            <label>Allow private questions</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Allow customers to submit privat questions which are not visible on the front-end.</comment>
+                        </allow_private>
+                        <needloggedin translate="label">
+                            <label>Customer log in required</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Customer needs to log in to submit a question.]]></comment>
+                        </needloggedin>
+                        <autoapprove translate="label">
+                            <label>Auto-approve questions</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Questions are directly published on the product page without admin approval.]]></comment>
+                        </autoapprove>
+                        <material_design translate="label">
+                            <label>Front-end style</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>productquestions/source_style</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Use the modern 'material' or classic front-end design.]]></comment>
+                        </material_design>
+                        <questionsperpage translate="label">
+                            <label>Amount of page items</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-digits</validate>
+                            <comment><![CDATA[The amount of questions and answers displayed per Product Questions page.]]></comment>
+                        </questionsperpage>
+                        <sorting translate="label">
+                            <label>Question sort order</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>productquestions/source_sort</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Default front-end question sort order.]]></comment>
+                        </sorting>
+                        <upvote_questions translate="label">
+                            <label>Enable question upvoting</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </upvote_questions>
+                        <downvote_questions translate="label">
+                            <label>Enable question downvoting</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </downvote_questions>
+                        <upvote_answers translate="label">
+                            <label>Enable answer upvoting</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </upvote_answers>
+                        <downvote_answers translate="label">
+                            <label>Enable answer downvoting</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </downvote_answers>
+                        <enable_captcha translate="label">
+                            <label>Enable ReCaptcha</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Add Google ReCaptcha to the product question form.</comment>
+                        </enable_captcha>
+                        <recaptcha_key translate="label">
+                            <label>ReCaptcha site key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_captcha>1</enable_captcha>
+                            </depends>
+                            <comment><![CDATA[Your Google ReCaptcha site key, which can be obtained <a target="_blank" href="https://www.google.com/recaptcha/admin">here</a>.]]></comment>
+                        </recaptcha_key>
+                        <recaptcha_private_key translate="label">
+                            <label>ReCaptcha secret key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_captcha>1</enable_captcha>
+                            </depends>
+                            <comment><![CDATA[Your Google ReCaptcha secret key, which can be obtained <a target="_blank" href="https://www.google.com/recaptcha/admin">here</a>.]]></comment>
+                        </recaptcha_private_key>
+                    </fields>
+                </plugincompany_questions_group>
+                <answer_settings translate="label">
+                    <label>Answer Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <default_name translate="label">
+                            <label>Default Answerer Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <validate>required-entry</validate>
+                            <comment>The default nickname to use when answering a question</comment>
+                        </default_name>
+                    </fields>
+                </answer_settings>
+                <plugincompany_questions_definemail translate="label">
+                    <label>Question Notification Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sendquestiontoclient translate="label">
+                            <label>Send notification to customer</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Notify customers per e-mail when their question is submitted.]]></comment>
+                        </sendquestiontoclient>
+                        <sendquestionemail translate="label">
+                            <label>BCC recipient(s)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Send a copy of the question notification to this e-mail address / comma-separated list.]]></comment>
+                        </sendquestionemail>
+                        <sendername translate="label">
+                            <label>Sender name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Leave empty to use the default store name.]]></comment>
+                        </sendername>
+                        <sender translate="label">
+                            <label>Sender e-mail address</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Leave empty to use the default store e-mail address.]]></comment>
+                        </sender>
+                        <subject translate="label">
+                            <label>Notification subject</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Subject of the question notification e-mail.]]></comment>
+                        </subject>
+                        <content translate="label">
+                            <label>Notification content</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[The content of the question notification e-mail. Supported variables: {customername}, {productname}, {productsku}, {producturl}, {storename}, {questiontext}]]></comment>
+                        </content>
+                    </fields>
+                </plugincompany_questions_definemail>
+                <plugincompany_questions_defineanswermail translate="label">
+                    <label>Answer Notification Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sendername translate="label">
+                            <label>Sender name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Leave empty to use default store name.]]></comment>
+                        </sendername>
+                        <sender translate="label">
+                            <label>Sender e-mail address</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Leave empty to use the default store e-mail address.]]></comment>
+                        </sender>
+                        <subject translate="label">
+                            <label>Notification subject</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Subject of the answer notification e-mail.]]></comment>
+                        </subject>
+                        <content translate="label">
+                            <label>Notification content</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[The content of the answer notification e-mail. Supported variables: {answertext}, {customername}, {moderator}, {productname}, {productsku}, {producturl}, {storename}]]></comment>
+                        </content>
+                    </fields>
+                </plugincompany_questions_defineanswermail>
+                <!--<plugincompany_questions_frontendlayout translate="label">-->
+                <!--<label>Configure Front-end Block Positioning</label>-->
+                <!--<frontend_type>text</frontend_type>-->
+                <!--<sort_order>20</sort_order>-->
+                <!--<show_in_default>1</show_in_default>-->
+                <!--<show_in_website>1</show_in_website>-->
+                <!--<show_in_store>1</show_in_store>-->
+                <!--<fields>-->
+                <!--<left translate="label">-->
+                <!--<label>Left margin</label>-->
+                <!--<frontend_type>text</frontend_type>-->
+                <!--<sort_order>2</sort_order>-->
+                <!--<show_in_default>1</show_in_default>-->
+                <!--<show_in_website>1</show_in_website>-->
+                <!--<show_in_store>1</show_in_store>-->
+                <!--<comment><![CDATA[The margin adjustment in pixels (for example: 25 or -25).]]></comment>-->
+                <!--</left>-->
+                <!--<top translate="label">-->
+                <!--<label>Top margin</label>-->
+                <!--<frontend_type>text</frontend_type>-->
+                <!--<sort_order>2</sort_order>-->
+                <!--<show_in_default>1</show_in_default>-->
+                <!--<show_in_website>1</show_in_website>-->
+                <!--<show_in_store>1</show_in_store>-->
+                <!--<comment><![CDATA[The margin adjustment in pixels (for example: 25 or -25).]]></comment>-->
+                <!--</top>-->
+                <!--<tabinject translate="label">-->
+                <!--<label>Add to product page tabs</label>-->
+                <!--<frontend_type>select</frontend_type>-->
+                <!--<source_model>adminhtml/system_config_source_yesno</source_model>-->
+                <!--<sort_order>3</sort_order>-->
+                <!--<show_in_default>1</show_in_default>-->
+                <!--<show_in_website>1</show_in_website>-->
+                <!--<show_in_store>1</show_in_store>-->
+                <!--<comment>If set to yes, product questions will be added to the tabs on the product page. This might not work with all custom themes.</comment>-->
+                <!--</tabinject>-->
+                <!--</fields>-->
+                <!--</plugincompany_questions_frontendlayout>-->
+            </groups>
+        </plugincompany_questions>
+    </sections>
+</config>
+

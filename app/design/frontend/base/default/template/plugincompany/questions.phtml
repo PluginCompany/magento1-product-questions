@@ -1,0 +1,199 @@
+<?php
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Product Questions, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+?>
+<?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/enabled')){ ?>
+<?php $product = Mage::registry('current_product'); ?>
+<?php $questionCollection = $this->getQuestions(); ?>
+            <div id="plugincompany_questions"
+                 <?php if (Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/material_design')) { ?>
+                     class="materialstyle"
+                    <?php } ?>
+                >
+                <?php if($this->getPageCount() > 1){ ?>
+                <p class="qpages"><?php echo $this->__('page: '); ?>
+                <?php $pagecount = $this->getPageCount();$i = 1;while($pagecount > 0){ ?>
+                        <a class="qpagenumber<?php if($i == 1){echo ' qcurrent';}?>"><?php echo $i; ?></a>
+                <?php $i++;$pagecount--;} ?>
+                </p>
+                <?php } ?>
+                <?php if($this->getTotalQuestionsCount()){ ?>
+                <p class="qquestions"><?php echo $this->__('Total %s question(s)', $this->getTotalQuestionsCount()); ?></p>
+                <?php } ?>
+                <div id="questionscontent">
+                    <?php
+                    /*
+                     * QUESTIONS LIST
+                     */
+                    foreach($questionCollection as $question){
+                        echo $this
+                                ->getLayout()
+                                ->createBlock('core/template')
+                                ->setTemplate('plugincompany/productquestions/questions/page.phtml')
+                                ->setQuestion($question)
+                                ->toHtml();
+                    }
+                        ?>
+                </div>
+                <?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/needloggedin') && !$this->helper('customer')->isLoggedIn()){ ?>
+                <p class="needlogin"><?php echo $this->__('You need to '); ?><a href="<?php echo Mage::getUrl('customer/account/login');?>"><?php echo $this->__('log in') ?></a><?php echo $this->__(' to ask a question.'); ?></p>
+                <?php }else{
+                    /*
+                     * ASK QUESTION FORM
+                     */
+                    ?>
+                <a id="addquestion" class="button" ><?php echo $this->__('Ask a question') ?></a>
+                <div id="questionFade" style="display:none;">
+                    <form id="productquestions" method="post" action="<?php echo $this->getUrl('productquestions/frontend/submitquestion')?>" style="overflow:hidden;">
+                        <label for="question_name"><?php echo $this->__('Name *'); ?></label>
+                        <input type="text" id="question_name" name="question_name" value="<?php echo $this->getUserName(); ?>" class="required-entry input-text"/>
+                        <label for="question_email"><?php echo $this->__('Email Address *'); ?></label>
+                        <input type="text" id="question_email" name="question_email" value="<?php echo $this->getEmailAddr(); ?>" class="required-entry validate-email input-text" <?php if($this->getEmailAddr()){ ?>readonly="true" <?php } ?> />
+                        <label for="question_question"><?php echo $this->__('Question *'); ?></label>
+                        <textarea type="text" id="question_question" name="question_question" value="" class="required-entry input-text"></textarea>
+                        <input id="question_product_id" name="question_product_id" type="hidden" style="display:none" value="<?php echo $product->getEntityId(); ?>" />
+                        <?php if($this->allowPrivateQuestions()) { ?>
+                            <input class="qprivate" type="checkbox" name="question_private" id="question_private" value="1" />
+                            <label class="qprivate" for="question_private"><?php echo $this->__('Keep my question private'); ?></label>
+                        <?php } ?>
+                        <?php if($this->isCaptchaEnabled()){ ?>
+                            <div class="g-recaptcha" data-sitekey="<?php echo $this->getReCaptchaKey(); ?>"></div>
+                        <?php } ?>
+                        <button type="button" title="Submit question" class="button" onclick="questionSubmit();">
+                                <span>
+                                    <span><?php echo $this->__('Submit question'); ?></span>
+                                </span>
+                         </button>
+
+                    </form>
+                </div>
+                <?php } ?>
+                <div id="questionResult">
+
+                </div>
+
+            </div>
+    <div style="clear:both;"></div>
+
+    <?php if($this->isCaptchaEnabled()){ ?>
+        <script type="text/javascript">
+            if(typeof grecaptcha == "undefined"){
+                jQuery('body').append("<script " + "src='https://www.google.com/recaptcha/api.js' async defer><\/script>");
+            }
+        </script>
+    <?php } ?>
+<script type="text/javascript">
+//<!--
+<?php if((Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/needloggedin') && $this->helper('customer')->isLoggedIn()) || (!Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/needloggedin'))){ ?>
+  var questionForm = new VarienForm('productquestions', false);
+  function questionSubmit(){
+	  if(questionForm.validator.validate()){
+		new Ajax.Updater('questionResult', '<?php echo $this->getUrl('productquestions/frontend/submitquestion');?>', {
+		  parameters:  $('productquestions').serialize(true),
+		  evalScripts :  true,
+		  onComplete: $("questionFade").fade()
+		});
+	  };
+  
+  }
+    $('addquestion').observe('click', showquestionform);
+    function showquestionform(){
+        $("questionFade").appear();
+        $("addquestion").hide();
+    }
+
+<?php } ?>
+
+
+  $$('.qpagenumber').each(function(element) {
+    element.observe('click', getQuestionPage);
+})
+	function getQuestionPage(event) {
+	   $$('.qpagenumber').each(function(element) {
+		  element.removeClassName('qcurrent');
+	   });
+	   var element = event.element();
+	   element.addClassName('qcurrent');
+	   var pagenumber = element.innerHTML;
+	   new Ajax.Updater('questionscontent', '<?php echo $this->getUrl('productquestions/frontend/page'); ?>'+'page/' +pagenumber + '/' + 'productid' + '/' + '<?php echo $product->getEntityId(); ?>', {
+			onComplete: function(){
+                Effect.Fade('questionscontent', { duration: 0.5 , from: 0, to: 1})
+                updateVoteColors();
+            }
+		});
+	}
+
+function pcqSetCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+function pcqGetCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+
+function pcqCastvote(element,type,dir,qid){
+    var element = element.firstDescendant();
+    var qid = qid;
+    var dir = dir;
+    var type = type;
+
+    if((pcqGetCookie('pcq_voted_question_' + qid) && type == 'question') || (pcqGetCookie('pcq_voted_answer_' + qid) && type == 'answer')){
+        return false;
+    }
+
+    new Ajax.Updater(element.next(), '<?php echo $this->getUrl('productquestions/frontend/vote'); ?>dir/'+ dir + '/' + 'qid' + '/'+qid + '/' + 'type' + '/' + type, {
+        onComplete: function(){
+            element.up().addClassName('voted');
+            pcqSetCookie('pcq_voted_' + type + '_' + qid, dir, 120);
+        }
+    });
+}
+
+function updateVoteColors() {
+    $$('.productquestion').each(function(item) {
+        var qid = item.readAttribute('question_id');
+        var dir = pcqGetCookie('pcq_voted_question_' + qid);
+        if(dir){
+            if(dir == 'down'){
+                if(item.down('.dislike'))
+                    item.down('.dislike').addClassName('voted');
+            }else if(dir == 'up'){
+                if(item.down('.like'))
+                    item.down('.like').addClassName('voted');
+            }
+        }
+
+    });
+    $$('.productanswer').each(function(item) {
+        var qid = item.readAttribute('question_id');
+        var dir = pcqGetCookie('pcq_voted_answer_' + qid);
+        if(dir){
+            if(dir == 'down'){
+                if(item.down('.dislike'))
+                    item.down('.dislike').addClassName('voted');
+            }else if(dir == 'up'){
+                if(item.down('.like'))
+                    item.down('.like').addClassName('voted');
+            }
+        }
+    })
+}
+
+updateVoteColors();
+// -->
+</script>
+
+<?php } ?>

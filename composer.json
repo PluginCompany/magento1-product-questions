@@ -1,0 +1,15 @@
+{
+    "name": "plugincompany/magento1-product-questions",
+    "description": "Product Questions for Magento 1 / OpenMage",
+    "type": "magento-module",
+    "license": "MIT",
+    "homepage": "https://plugin.company/magento1-extensions/product-questions.html",
+    "support": {
+        "issues": "https://github.com/PluginCompany/magento1-product-questions/issues",
+        "source": "https://github.com/PluginCompany/magento1-product-questions"
+    },
+    "version": "1.6.0",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

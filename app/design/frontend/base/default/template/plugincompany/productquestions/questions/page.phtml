@@ -1,0 +1,33 @@
+<?php $question = $this->getQuestion(); ?>
+<div class="productquestion" question_id="<?php echo $question->getId();?>">
+    <p class="question"><?php echo nl2br($question->getQuestion()); ?></p>
+    <div class="bottom">
+        <p class="asker">
+            <?php echo $this->__('Question submitted by: ').$question->getName().$this->__(' on: ').$question->getDateAsked(); ?>
+        </p>
+        <div class="votes">
+            <?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/upvote_questions')){ ?>
+                <span class="like" onclick="pcqCastvote(this,'question','up',<?php echo $question->getId() ?>)"><span class="icon-thumbs-up" ></span> <span class="count"><?php echo $question->getUpvotes();?></span></span>
+            <?php } ?>
+            <?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/downvote_questions')){ ?>
+                <span class="dislike" onclick="pcqCastvote(this,'question','down',<?php echo $question->getId() ?>)"><span class="icon-thumbs-down" ></span> <span class="count"><?php echo $question->getDownvotes(); ?></span></span>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<?php if($question->getAnswer()){ ?>
+    <div class="productanswer" question_id="<?php echo $question->getId();?>">
+        <p class="answer"><?php echo nl2br($question->getAnswer()); ?></p>
+        <div class="bottom">
+            <p class="answerer"><?php echo $this->__('Answer submitted by: ').$question->getAnsweredBy().$this->__(' on: ').$question->getDateAnswered(); ?></p>
+            <div class="votes">
+                <?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/upvote_answers')){ ?>
+                    <span class="like" onclick="pcqCastvote(this,'answer','up',<?php echo $question->getId() ?>)"><span class="icon-thumbs-up" ></span> <span class="count"><?php echo $question->getAnswerUpvotes();?></span></span>
+                <?php } ?>
+                <?php if(Mage::getStoreConfig('plugincompany_questions/plugincompany_questions_group/downvote_answers')){ ?>
+                    <span class="dislike" onclick="pcqCastvote(this,'answer','down',<?php echo $question->getId() ?>)"><span class="icon-thumbs-down" ></span> <span class="count"><?php echo $question->getAnswerDownvotes(); ?></span></span>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+<?php } ?>

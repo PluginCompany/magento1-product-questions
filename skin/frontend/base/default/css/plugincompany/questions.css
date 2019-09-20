@@ -1,0 +1,103 @@
+﻿#plugincompany_questions {float:left;clear:both;width:100%;margin-bottom:20px;}
+#plugincompany_questions textarea {width:550px;height:80px;float:left;clear:both;}
+#plugincompany_questions  input{width:210px;float:left;clear:both}
+#plugincompany_questions button {margin-top:5px;float:left;clear:both;}
+#plugincompany_questions label {margin-top:2px;float:left;clear:both;}
+#plugincompany_questions #questionResult {width:100%;clear:both;}
+#plugincompany_questions .messages {padding-top: 8px!important;}
+#plugincompany_questions .asker, #plugincompany_questions .answerer {font-size:10px;font-style:italic;float:left}
+
+#plugincompany_questions .asker, #plugincompany_questions .answerer {margin-bottom:2px;}
+#plugincompany_questions .productquestion,#plugincompany_questions .productanswer {
+padding:4px;
+border:1px solid #efefef;
+background:white;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+margin:2px;
+padding-bottom:10px;
+}
+#plugincompany_questions .productquestion{margin-top:4px;background:#f2faff}
+
+#plugincompany_questions .productanswer  {margin-left:14px;background:#ddf8e0}
+#addquestion {cursor:pointer;margin-top: 8px;float: left;}
+#questionFade {padding-top:8px;float:left;clear:both;}
+#plugincompany_questions .needlogin {margin-top: 8px;float: left;}
+#plugincompany_questions a {cursor:pointer;}
+#plugincompany_questions a.qcurrent {font-weight:bold;color:#666}
+.qpages {float:right;padding:0px;margin:0px;margin-top:-8px;margin-right:6px;font-size:11px;color:#666}
+.qquestions {float:right;padding:0px;margin:0px;margin-top:-8px;font-size:11px;color:#666;margin-right:4px;clear:left;}
+#plugincompany_questions #questionscontent {float:left;width:100%}
+
+#plugincompany_questions .validation-advice {
+    float: left;
+    clear: left;
+}
+
+#plugincompany_questions input.qprivate {
+    clear:left;
+    margin:5px;
+    margin-left:0px;
+    width:auto;
+}
+
+#plugincompany_questions label.qprivate {
+    clear:right;
+}
+
+#plugincompany_questions.materialstyle .productquestion,
+#plugincompany_questions.materialstyle .productanswer
+{
+    background: white;
+    border-radius: 0px;
+    padding: 14px;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    border: 0px;
+    margin-bottom: 10px;
+    border-left: 5px solid #91D3DF;
+}
+
+#plugincompany_questions.materialstyle .productanswer {
+    border-color:#FFBBBB;
+}
+
+#plugincompany_questions .votes {float:right}
+#plugincompany_questions .bottom {min-height:10px;}
+#plugincompany_questions .bottom .votes span {
+    cursor:pointer;
+    display:block;
+    float:left;
+    margin-left:2px;
+    color:#A0A0A0;
+}
+
+#plugincompany_questions .bottom .votes span.count {
+    float:right;
+    margin-left: 0px;
+    margin-right: 0px;
+    min-width:10px;
+    height:10px;
+}
+
+#plugincompany_questions .bottom .dislike:hover span,
+#plugincompany_questions .bottom .dislike.voted span
+{
+    color: rgb(242, 97, 97);
+}
+
+#plugincompany_questions .bottom .like:hover span,
+#plugincompany_questions .bottom .like.voted span {
+    color: rgb(97, 170, 242)
+}
+
+#plugincompany_questions.materialstyle .bottom {
+    margin-top:10px;
+}
+
+#plugincompany_questions .g-recaptcha {
+    float:left;
+    clear:left;
+}

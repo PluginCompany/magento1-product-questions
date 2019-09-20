@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Product Questions, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<config>
+  <modules>
+    <Plugincompany_Productquestions>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>1.0.1</version>
+    </Plugincompany_Productquestions>
+  </modules>
+</config>
